@@ -12,7 +12,7 @@
 (() => {
   "use strict";
 
-  const CARD_VERSION = "2026.09.19.03";
+  const CARD_VERSION = "2026.09.19.05";
   const CARD_TAG = "ha-local-area-concierge-card";
   const EDITOR_TAG = "ha-local-area-concierge-card-editor";
   const DOMAIN = "local_area_concierge";

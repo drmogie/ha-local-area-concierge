@@ -31,6 +31,8 @@ Add this repository to HACS (category: Integration), install, then restart Home 
 2. Restart Home Assistant.
 3. The companion card registers itself automatically — no separate Lovelace resource to add.
 
+Home Assistant automatically picks up the integration's own brand icon/logo from its `brand/` folder after installing + restarting - no extra step needed.
+
 ## Configuration
 
 1. Go to **Settings → Devices & services → Add Integration** and search for **Local Area Concierge**.

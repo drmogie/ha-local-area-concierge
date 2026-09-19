@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.09.19.05
+- Added a real brand icon/logo (a concierge holding the Home Assistant logo), replacing the placeholder generated during the initial build. `icon.png`/`icon@2x.png` are cropped tight to the head/cap/bow-tie for legibility at the small size Home Assistant renders integration icons at; `logo.png`/`logo@2x.png` keep the full figure.
+- Fixed: the previous release (`.04`) bumped the backend's `CARD_VERSION` (`const.py`/`manifest.json`) but missed the card's own matching JS constant, leaving it out of lockstep at `2026.09.19.03`. Brought it back in sync.
+
 ## 2026.09.19.04
 - Fixed: messages sent through a concierge never told the conversation agent which device (and therefore which Area) they came from - `conversation.async_converse` was called without a `device_id`, even though Home Assistant supports one. This meant any device/satellite-aware sentence trigger (like a phrase-router style "whichever room heard it" rule) couldn't tell concierges apart, no matter which Area's concierge you were chatting through. Each concierge now passes its own device's ID, the same way a real voice satellite would.
 
