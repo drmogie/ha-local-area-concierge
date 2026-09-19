@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026.09.19.03
+- Added a **Scope messages to this Area** option (Configure → options, on by default). Turn it off to send a message as-is, with no Area name added, so a sentence naming a different Area or entity directly (e.g. "turn off office chris light" typed into a different Area's chat) can address it instead of always being forced onto this concierge's own Area.
+- The card's status line now shows the Assist Pipeline in use right next to "Ready" (e.g. "Ready · Home Assistant"), not just as a hover tooltip.
+- Fixed: the "New conversation" (broom) button cleared the chat log but left whatever you'd typed sitting in the message box. It now clears the input too.
+
 ## 2026.09.19.02
 - Fixed a deprecation warning logged on every setup: switched device lookup from `device_registry.async_get_device` (deprecated, identifiers/connections are no longer unique across config entries) to `async_get_device_by_identifier`, which is unambiguous per config entry. No behavior change.
 

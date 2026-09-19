@@ -26,6 +26,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import area_registry as ar
 from homeassistant.helpers.selector import (
     AreaSelector,
+    BooleanSelector,
     NumberSelector,
     NumberSelectorConfig,
     NumberSelectorMode,
@@ -40,7 +41,9 @@ from .const import (
     CONF_AREA_NAME,
     CONF_MAX_MESSAGES,
     CONF_PIPELINE_ID,
+    CONF_SCOPE_TO_AREA,
     DEFAULT_MAX_MESSAGES,
+    DEFAULT_SCOPE_TO_AREA,
     DOMAIN,
     MAX_MAX_MESSAGES,
     MIN_MAX_MESSAGES,
@@ -137,6 +140,7 @@ class LocalAreaConciergeOptionsFlow(OptionsFlowWithReload):
                 data={
                     CONF_PIPELINE_ID: user_input[CONF_PIPELINE_ID],
                     CONF_MAX_MESSAGES: int(user_input[CONF_MAX_MESSAGES]),
+                    CONF_SCOPE_TO_AREA: user_input[CONF_SCOPE_TO_AREA],
                 }
             )
 
@@ -164,6 +168,12 @@ class LocalAreaConciergeOptionsFlow(OptionsFlowWithReload):
                         mode=NumberSelectorMode.BOX,
                     )
                 ),
+                vol.Required(
+                    CONF_SCOPE_TO_AREA,
+                    default=entry.options.get(
+                        CONF_SCOPE_TO_AREA, DEFAULT_SCOPE_TO_AREA
+                    ),
+                ): BooleanSelector(),
             }
         )
         return self.async_show_form(step_id="init", data_schema=schema)

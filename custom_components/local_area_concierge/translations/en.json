@@ -31,11 +31,13 @@
         "title": "Concierge options",
         "data": {
           "pipeline_id": "Assist Pipeline",
-          "max_messages": "Messages of history to keep"
+          "max_messages": "Messages of history to keep",
+          "scope_to_area": "Scope messages to this Area"
         },
         "data_description": {
           "pipeline_id": "Changing this reloads the concierge. Its chat history is kept.",
-          "max_messages": "When the chat log gets longer than this, the oldest messages quietly drop off."
+          "max_messages": "When the chat log gets longer than this, the oldest messages quietly drop off.",
+          "scope_to_area": "On: this Area's name is added to your message automatically, so \"turn off the lights\" only affects this Area. Off: your message is sent as-is, so you can name a different Area or entity directly."
         }
       }
     }

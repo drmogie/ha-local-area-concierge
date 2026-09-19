@@ -10,10 +10,15 @@ CONF_AREA_ID = "area_id"
 CONF_AREA_NAME = "area_name"
 CONF_PIPELINE_ID = "pipeline_id"
 CONF_MAX_MESSAGES = "max_messages"
+CONF_SCOPE_TO_AREA = "scope_to_area"
 
 DEFAULT_MAX_MESSAGES = 100
 MIN_MAX_MESSAGES = 10
 MAX_MAX_MESSAGES = 1000
+# On by default: this is the original, only behavior. Turning it off lets a
+# message name a different Area/entity directly instead of always being
+# scoped to this concierge's own Area.
+DEFAULT_SCOPE_TO_AREA = True
 
 # The companion card ships inside the integration. The whole www/ folder is
 # registered as one static directory so future assets need no extra routes.
@@ -21,7 +26,7 @@ CARD_FILENAME = "ha-local-area-concierge-card.js"
 STATIC_URL_ROOT = f"/{DOMAIN}"
 CARD_URL = f"{STATIC_URL_ROOT}/{CARD_FILENAME}"
 # Keep in lockstep with manifest.json "version" and the card's CARD_VERSION.
-CARD_VERSION = "2026.09.19.02"
+CARD_VERSION = "2026.09.19.03"
 
 STORAGE_VERSION = 1
 

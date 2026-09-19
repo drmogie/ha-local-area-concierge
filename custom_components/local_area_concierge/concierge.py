@@ -37,8 +37,10 @@ from .const import (
     CONF_AREA_NAME,
     CONF_MAX_MESSAGES,
     CONF_PIPELINE_ID,
+    CONF_SCOPE_TO_AREA,
     CONVERSE_TIMEOUT,
     DEFAULT_MAX_MESSAGES,
+    DEFAULT_SCOPE_TO_AREA,
     DOMAIN,
     ERROR_TEXT,
     GLOBAL_INTENTS,
@@ -103,6 +105,19 @@ class ConciergeDevice:
         """Return how many messages of history to keep."""
         return int(self.entry.options.get(CONF_MAX_MESSAGES, DEFAULT_MAX_MESSAGES))
 
+    @property
+    def scope_to_area(self) -> bool:
+        """Return whether this Area's name is auto-appended to messages.
+
+        On by default (the original behavior). Turning it off sends the
+        message as-is, so a sentence that names a different Area or entity
+        directly ("turn off office chris light") isn't forced into this
+        concierge's own Area.
+        """
+        return bool(
+            self.entry.options.get(CONF_SCOPE_TO_AREA, DEFAULT_SCOPE_TO_AREA)
+        )
+
     def get_pipeline(self) -> Pipeline | None:
         """Return the configured pipeline, or None if it no longer exists."""
         try:
@@ -125,6 +140,7 @@ class ConciergeDevice:
             "has_tts": bool(pipeline and pipeline.tts_engine),
             "available": self._agent_available(pipeline),
             "max_messages": self.max_messages,
+            "scope_to_area": self.scope_to_area,
         }
 
     def _agent_available(self, pipeline: Pipeline | None) -> bool:
@@ -303,20 +319,27 @@ class ConciergeDevice:
         agent_id = pipeline.conversation_engine
         language = _pipeline_language(pipeline)
         is_local_agent = agent_id == conversation.HOME_ASSISTANT_AGENT
+        scope = self.scope_to_area
 
         # Home Assistant's own agent (and "prefer local intents" pipelines)
         # get the message with the Area appended, so its native Area matching
-        # scopes the request: "turn off the lights" -> "... in Office".
+        # scopes the request: "turn off the lights" -> "... in Office". With
+        # scoping turned off, the message goes through untouched, so a
+        # sentence naming a different Area/entity can address it directly.
         if is_local_agent or pipeline.prefer_local_intents:
-            scoped = await self._async_scope_text(text, language, context)
+            scoped = (
+                await self._async_scope_text(text, language, context)
+                if scope
+                else text
+            )
             result = await self._async_converse(
                 scoped, conversation.HOME_ASSISTANT_AGENT, language, context
             )
             if is_local_agent or not _is_no_match(result):
                 return _speech(result)
 
-        # Any other agent (an LLM, say) gets the plain message plus a system
-        # prompt that keeps it scoped to this Area.
+        # Any other agent (an LLM, say) gets the plain message, plus - when
+        # scoping is on - a system prompt that keeps it scoped to this Area.
         result = await self._async_converse(
             text,
             agent_id,
@@ -327,7 +350,9 @@ class ConciergeDevice:
                 "Treat requests as being about this area only, unless they "
                 "explicitly name somewhere else, and only control or report "
                 "on devices and entities in this area."
-            ),
+            )
+            if scope
+            else None,
         )
         return _speech(result)
 

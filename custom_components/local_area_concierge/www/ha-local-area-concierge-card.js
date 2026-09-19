@@ -12,7 +12,7 @@
 (() => {
   "use strict";
 
-  const CARD_VERSION = "2026.09.19.02";
+  const CARD_VERSION = "2026.09.19.03";
   const CARD_TAG = "ha-local-area-concierge-card";
   const EDITOR_TAG = "ha-local-area-concierge-card-editor";
   const DOMAIN = "local_area_concierge";
@@ -413,7 +413,7 @@
           label = "Last request failed";
         } else {
           cls = "ok";
-          label = "Ready";
+          label = meta.pipeline_name ? `Ready · ${meta.pipeline_name}` : "Ready";
         }
       }
       this._el.dot.className = `dot ${cls}`;
@@ -817,6 +817,10 @@
         return;
       }
       this._disarmClear();
+      if (this._el.input) {
+        this._el.input.value = "";
+        this._autoGrow();
+      }
       this._hass.callWS({ type: `${DOMAIN}/clear`, entry_id: c.entry_id }).catch(() => {
         this._note("Couldn't clear the chat");
       });

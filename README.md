@@ -38,7 +38,7 @@ Add this repository to HACS (category: Integration), install, then restart Home 
 3. Pick one of your existing **Assist Pipelines** (Settings → Voice assistants) for this device.
 4. Name it and finish.
 
-Add the **Local Area Concierge Card** to a dashboard (it works great in a Sections view) and pick the new Concierge in the GUI editor to start chatting. The **Configure** button on the integration lets you change the pipeline later and set how many messages of history to keep (default 100).
+Add the **Local Area Concierge Card** to a dashboard (it works great in a Sections view) and pick the new Concierge in the GUI editor to start chatting. The **Configure** button on the integration lets you change the pipeline later, set how many messages of history to keep (default 100), and turn off **Scope messages to this Area** if you'd rather type the Area/entity name yourself instead of having it added automatically.
 
 ### Optional: spoken replies
 
