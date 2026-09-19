@@ -16,5 +16,5 @@
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/drmogie/ha-local-area-concierge/issues",
   "requirements": [],
-  "version": "2026.09.19.01"
+  "version": "2026.09.19.02"
 }

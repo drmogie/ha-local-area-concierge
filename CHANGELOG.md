@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026.09.19.02
+- Fixed a deprecation warning logged on every setup: switched device lookup from `device_registry.async_get_device` (deprecated, identifiers/connections are no longer unique across config entries) to `async_get_device_by_identifier`, which is unambiguous per config entry. No behavior change.
+
 ## 2026.09.19.01
 - Initial release.
 - Integration: one config entry per Home Assistant Area (opt-in). Pick an Area, pick one of your existing Assist Pipelines, name it. Options let you change the pipeline later and set how many messages of history to keep.

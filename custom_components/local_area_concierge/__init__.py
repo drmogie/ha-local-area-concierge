@@ -46,11 +46,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConciergeConfigEntry) ->
 
     # Register the device, and (only the first time) place it in its Area.
     dev_reg = dr.async_get(hass)
-    identifiers = {(DOMAIN, entry.entry_id)}
-    is_new = dev_reg.async_get_device(identifiers=identifiers) is None
+    identifier = (DOMAIN, entry.entry_id)
+    is_new = (
+        dev_reg.async_get_device_by_identifier(identifier, entry.entry_id) is None
+    )
     device_entry = dev_reg.async_get_or_create(
         config_entry_id=entry.entry_id,
-        identifiers=identifiers,
+        identifiers={identifier},
         name=entry.title,
         manufacturer="Local Area Concierge",
         model="Area Concierge",
