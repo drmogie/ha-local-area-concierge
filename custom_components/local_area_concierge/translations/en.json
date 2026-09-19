@@ -1,0 +1,43 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add an Area Concierge",
+        "description": "Give one Area its own AI chat. Requests typed to it are scoped to that Area only. It uses one of your existing Assist Pipelines (Settings → Voice assistants) - nothing else to set up.",
+        "data": {
+          "area_id": "Area",
+          "pipeline_id": "Assist Pipeline",
+          "name": "Name (optional)"
+        },
+        "data_description": {
+          "area_id": "The Area this concierge lives in. Each Area can have one.",
+          "pipeline_id": "Its conversation agent, speech-to-text and text-to-speech voice all come from this pipeline.",
+          "name": "Leave blank to use the Area's name followed by \"Concierge\"."
+        }
+      }
+    },
+    "error": {
+      "area_not_found": "That Area no longer exists. Pick another one.",
+      "area_taken": "This Area already has a Concierge."
+    },
+    "abort": {
+      "already_configured": "This Area already has a Concierge.",
+      "no_pipelines": "No Assist Pipelines were found. Create one first under Settings → Voice assistants."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Concierge options",
+        "data": {
+          "pipeline_id": "Assist Pipeline",
+          "max_messages": "Messages of history to keep"
+        },
+        "data_description": {
+          "pipeline_id": "Changing this reloads the concierge. Its chat history is kept.",
+          "max_messages": "When the chat log gets longer than this, the oldest messages quietly drop off."
+        }
+      }
+    }
+  }
+}

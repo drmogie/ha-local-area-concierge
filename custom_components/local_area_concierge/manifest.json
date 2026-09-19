@@ -1,0 +1,20 @@
+{
+  "domain": "local_area_concierge",
+  "name": "Local Area Concierge",
+  "after_dependencies": ["tts"],
+  "codeowners": ["@drmogie"],
+  "config_flow": true,
+  "dependencies": [
+    "assist_pipeline",
+    "conversation",
+    "frontend",
+    "http",
+    "websocket_api"
+  ],
+  "documentation": "https://github.com/drmogie/ha-local-area-concierge",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/drmogie/ha-local-area-concierge/issues",
+  "requirements": [],
+  "version": "2026.09.19.01"
+}
