@@ -58,6 +58,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConciergeConfigEntry) ->
         model="Area Concierge",
         entry_type=DeviceEntryType.SERVICE,
     )
+    # Lets _async_converse identify this concierge to the conversation agent
+    # as the "device" the message came from, the same way a real voice
+    # satellite does - so device/satellite-aware sentence triggers can
+    # resolve this concierge's own Area.
+    device.hass_device_id = device_entry.id
     if is_new and device.area_exists:
         dev_reg.async_update_device(device_entry.id, area_id=device.area_id)
 

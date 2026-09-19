@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026.09.19.04
+- Fixed: messages sent through a concierge never told the conversation agent which device (and therefore which Area) they came from - `conversation.async_converse` was called without a `device_id`, even though Home Assistant supports one. This meant any device/satellite-aware sentence trigger (like a phrase-router style "whichever room heard it" rule) couldn't tell concierges apart, no matter which Area's concierge you were chatting through. Each concierge now passes its own device's ID, the same way a real voice satellite would.
+
 ## 2026.09.19.03
 - Added a **Scope messages to this Area** option (Configure → options, on by default). Turn it off to send a message as-is, with no Area name added, so a sentence naming a different Area or entity directly (e.g. "turn off office chris light" typed into a different Area's chat) can address it instead of always being forced onto this concierge's own Area.
 - The card's status line now shows the Assist Pipeline in use right next to "Ready" (e.g. "Ready · Home Assistant"), not just as a hover tooltip.

@@ -70,6 +70,12 @@ class ConciergeDevice:
         self.messages: list[dict[str, Any]] = []
         self.conversation_id: str | None = None
         self.status = STATUS_IDLE
+        # Set once, right after this concierge's own device is registered
+        # (see __init__.py). Passed to conversation.async_converse so any
+        # device/satellite-aware sentence trigger (e.g. an area-scoped
+        # custom sentence) knows which Area this message came from - the
+        # same way a real voice satellite would identify itself.
+        self.hass_device_id: str | None = None
         self._lock = asyncio.Lock()
         self._listeners: list[EventListener] = []
 
@@ -371,6 +377,7 @@ class ConciergeDevice:
             context=context,
             language=language,
             agent_id=agent_id,
+            device_id=self.hass_device_id,
             extra_system_prompt=extra_system_prompt,
         )
         if result.conversation_id:

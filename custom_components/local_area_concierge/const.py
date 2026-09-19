@@ -26,7 +26,7 @@ CARD_FILENAME = "ha-local-area-concierge-card.js"
 STATIC_URL_ROOT = f"/{DOMAIN}"
 CARD_URL = f"{STATIC_URL_ROOT}/{CARD_FILENAME}"
 # Keep in lockstep with manifest.json "version" and the card's CARD_VERSION.
-CARD_VERSION = "2026.09.19.03"
+CARD_VERSION = "2026.09.19.04"
 
 STORAGE_VERSION = 1
 
