@@ -12,7 +12,7 @@
 (() => {
   "use strict";
 
-  const CARD_VERSION = "2026.09.19.05";
+  const CARD_VERSION = "2026.09.19.06";
   const CARD_TAG = "ha-local-area-concierge-card";
   const EDITOR_TAG = "ha-local-area-concierge-card-editor";
   const DOMAIN = "local_area_concierge";
@@ -413,12 +413,17 @@
           label = "Last request failed";
         } else {
           cls = "ok";
-          label = meta.pipeline_name ? `Ready · ${meta.pipeline_name}` : "Ready";
+          const readyParts = [meta.pipeline_name, meta.area_name].filter(Boolean);
+          label = readyParts.length ? `Ready · ${readyParts.join(" · ")}` : "Ready";
         }
       }
       this._el.dot.className = `dot ${cls}`;
       this._el.sub.textContent = label;
-      this._el.hdr.title = meta && meta.pipeline_name ? `Assist Pipeline: ${meta.pipeline_name}` : "";
+      this._el.hdr.title = meta
+        ? [meta.pipeline_name ? `Assist Pipeline: ${meta.pipeline_name}` : null, meta.area_name ? `Area: ${meta.area_name}` : null]
+            .filter(Boolean)
+            .join("\n")
+        : "";
       this._el.input.placeholder = meta ? `Message ${meta.area_name}` : "Type a message";
       this._syncControls();
     }

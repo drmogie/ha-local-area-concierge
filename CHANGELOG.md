@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026.09.19.06
+- The card's status line now shows the Area name too, alongside the Assist Pipeline (e.g. "Ready · Home Assistant · Office: Mogie"), not just the pipeline. Same addition to the hover tooltip.
+
 ## 2026.09.19.05
 - Added a real brand icon/logo (a concierge holding the Home Assistant logo), replacing the placeholder generated during the initial build. `icon.png`/`icon@2x.png` are cropped tight to the head/cap/bow-tie for legibility at the small size Home Assistant renders integration icons at; `logo.png`/`logo@2x.png` keep the full figure.
 - Fixed: the previous release (`.04`) bumped the backend's `CARD_VERSION` (`const.py`/`manifest.json`) but missed the card's own matching JS constant, leaving it out of lockstep at `2026.09.19.03`. Brought it back in sync.
